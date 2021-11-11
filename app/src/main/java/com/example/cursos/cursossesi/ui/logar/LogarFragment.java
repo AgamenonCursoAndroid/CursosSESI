@@ -10,10 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.cursos.cursossesi.MainActivity;
+import com.example.cursos.cursossesi.ui.activity.MainActivity;
 import com.example.cursos.cursossesi.R;
 import com.example.cursos.cursossesi.ui.aluno.AlunoFragment;
-import com.example.cursos.cursossesi.ui.aluno.CadastrarAlunoFragment;
 import com.example.cursos.cursossesi.ui.colaborador.ColaboradorFragment;
 
 public class LogarFragment extends Fragment implements View.OnClickListener {

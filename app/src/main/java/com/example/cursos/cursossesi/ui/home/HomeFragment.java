@@ -9,10 +9,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
-import com.example.cursos.cursossesi.MainActivity;
+import com.example.cursos.cursossesi.ui.activity.MainActivity;
 import com.example.cursos.cursossesi.R;
 import com.example.cursos.cursossesi.ui.aluno.AlunoFragment;
 import com.example.cursos.cursossesi.ui.colaborador.ColaboradorFragment;

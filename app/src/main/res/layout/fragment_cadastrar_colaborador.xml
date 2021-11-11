@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Informe seu nome"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:text="Agamenon" />
 
         <EditText
             android:id="@+id/txtEmail"
@@ -25,7 +26,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Informe seu e-mail"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:text="agamenon.pereira@gmail.com" />
 
         <EditText
             android:id="@+id/txtTelefone"
@@ -33,7 +35,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Informe seu telefone"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:text="11 99833-7808" />
 
         <EditText
             android:id="@+id/txtUsuario"
@@ -41,23 +44,60 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Usuário"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:text="agamenon.pereira@gmail.com" />
 
-        <EditText
-            android:id="@+id/txtSenha"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Senha"
-            android:inputType="textPassword" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/txtConfirmaSenha"
+            <ImageView
+                android:id="@+id/imgViewSenha"
+                android:layout_width="61dp"
+                android:layout_height="43dp"
+                android:src="@drawable/hidden"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/txtSenha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:ems="10"
+                android:hint="Senha"
+                android:inputType="textPassword"
+                android:text="123456"
+                app:layout_constraintEnd_toStartOf="@+id/imgViewSenha"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Confirma Senha"
-            android:inputType="textPassword" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgViewConfirmaSenha"
+                android:layout_width="61dp"
+                android:layout_height="43dp"
+                android:src="@drawable/hidden"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/txtConfirmaSenha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:ems="10"
+                android:hint="Confirma Senha"
+                android:inputType="textPassword"
+                android:text="123456"
+                app:layout_constraintEnd_toStartOf="@+id/imgViewConfirmaSenha"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -88,10 +128,6 @@
                 app:layout_constraintVertical_bias="0.509" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ListView
-            android:id="@+id/listErros"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </LinearLayout>
 
 </FrameLayout>

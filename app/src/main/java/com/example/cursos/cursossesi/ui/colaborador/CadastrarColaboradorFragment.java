@@ -1,11 +1,14 @@
 package com.example.cursos.cursossesi.ui.colaborador;
 
+import android.content.Intent;
 import android.os.Bundle;
-
+import com.example.cursos.cursossesi.ui.activity.MainActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,21 +17,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cursos.cursossesi.MainActivity;
+import com.example.cursos.cursossesi.ui.activity.MainActivity;
 import com.example.cursos.cursossesi.R;
 import com.example.cursos.cursossesi.models.Colaborador;
-import com.example.cursos.cursossesi.retorno.ColaboradorRetorno;
+import com.example.cursos.cursossesi.retorno.ColaboradorRetornoErro;
 import com.example.cursos.cursossesi.services.ColaboradorService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -39,9 +40,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CadastrarColaboradorFragment extends Fragment implements View.OnClickListener {
     Boolean retorno;
+    Boolean mostrarSenha = false;
+    Boolean mostrarConfirmaSenha = false;
     EditText txtNome, txtEmail, txtTelefone, txtUsuario, txtSenha, txtConfirmaSenha;
+    ImageView imgViewSenha;
+    ImageView imgViewConfirmaSenha;
     Retrofit retrofit;
-    ListView listErros;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +57,14 @@ public class CadastrarColaboradorFragment extends Fragment implements View.OnCli
 
         Button btnSalvar = (Button) view.findViewById(R.id.btnSalvar);
         btnSalvar.setOnClickListener(this);
+
+        imgViewSenha = (ImageView) view.findViewById(R.id.imgViewSenha);
+        imgViewSenha.setOnClickListener(this);
+        mostrarSenha = false;
+
+        imgViewConfirmaSenha = (ImageView) view.findViewById(R.id.imgViewConfirmaSenha);
+        imgViewConfirmaSenha.setOnClickListener(this);
+        mostrarConfirmaSenha = false;
 
         definirInstanciaDosObjetosDaView(view);
 
@@ -70,7 +82,6 @@ public class CadastrarColaboradorFragment extends Fragment implements View.OnCli
                 .baseUrl("https://cadastros.sesi.agamenon.eti.br/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        listErros = (ListView) view.findViewById(R.id.listErros);
     }
 
     @Override
@@ -84,6 +95,38 @@ public class CadastrarColaboradorFragment extends Fragment implements View.OnCli
                 if (!consistirDados()) return;
                 if (!salvarColaborador()) return;
                 break;
+
+            case R.id.imgViewSenha:
+                visiblidadeSenha();
+                break;
+
+            case R.id.imgViewConfirmaSenha:
+                visiblidadeConfirmaSenha();
+                break;
+        }
+    }
+
+    private void visiblidadeSenha() {
+        mostrarSenha = !mostrarSenha;
+        if (mostrarSenha) {
+            imgViewSenha.setImageResource(R.drawable.view);
+            txtSenha.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        }
+        else {
+            imgViewSenha.setImageResource(R.drawable.hidden);
+            txtSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }
+    }
+
+    private void visiblidadeConfirmaSenha() {
+        mostrarConfirmaSenha = !mostrarConfirmaSenha;
+        if (mostrarConfirmaSenha) {
+            imgViewConfirmaSenha.setImageResource(R.drawable.view);
+            txtConfirmaSenha.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        }
+        else {
+            imgViewConfirmaSenha.setImageResource(R.drawable.hidden);
+            txtConfirmaSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }
     }
 
@@ -114,9 +157,9 @@ public class CadastrarColaboradorFragment extends Fragment implements View.OnCli
                 }
                 if (response.code() == 400) {
                     Gson gson = new GsonBuilder().create();
-                    ColaboradorRetorno colaboradorRetorno = new ColaboradorRetorno();
+                    ColaboradorRetornoErro colaboradorRetorno = new ColaboradorRetornoErro();
                     try {
-                        colaboradorRetorno = gson.fromJson(response.errorBody().string(),ColaboradorRetorno.class);
+                        colaboradorRetorno = gson.fromJson(response.errorBody().string(), ColaboradorRetornoErro.class);
                         mostrarErros(colaboradorRetorno.getErrors().getMensagens());
                     } catch (IOException e) {
                         // handle failure to read error
@@ -134,6 +177,7 @@ public class CadastrarColaboradorFragment extends Fragment implements View.OnCli
         return retorno;
     }
 
+    /*
     private void mostrarErros(String[] erros) {
         // Criar Adapter para a listview;
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
@@ -145,6 +189,16 @@ public class CadastrarColaboradorFragment extends Fragment implements View.OnCli
         // Adicionar adaptador para lista;
         listErros.setAdapter(adaptador);
     }
+    */
+
+    private void mostrarErros(String[] erros) {
+        Intent intent = new Intent((MainActivity)getActivity(), ErroCadastrarColaboradorActivity.class);
+        intent.putExtra("Erros", erros);
+        startActivity(intent);
+    }
+
+
+
 
     public void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();

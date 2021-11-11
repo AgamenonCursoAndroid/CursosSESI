@@ -1,6 +1,6 @@
 package com.example.cursos.cursossesi.retorno;
 
-public class ColaboradorRetorno {
+public class ColaboradorRetornoErro {
     private String title;
     private int status;
     private ListaDeErros errors;

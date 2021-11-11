@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.example.cursos.cursossesi.MainActivity;
+import com.example.cursos.cursossesi.ui.activity.MainActivity;
 import com.example.cursos.cursossesi.R;
 import com.example.cursos.cursossesi.models.Cep;
 import com.example.cursos.cursossesi.services.CepService;

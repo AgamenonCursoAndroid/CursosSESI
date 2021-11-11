@@ -12,7 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CursosSESI">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.colaborador.ErroCadastrarColaboradorActivity"
+            android:label="Mensagem(ns) de Erro"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:excludeFromRecents="true"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".ui.activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.CursosSESI.NoActionBar">
@@ -22,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
