@@ -11,10 +11,14 @@
         <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/app_bar_main.xml" value="0.25416666666666665" />
         <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/content_main.xml" value="0.25" />
+        <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/cursos_detalhe.xml" value="0.264" />
         <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/fragment_aluno.xml" value="0.25416666666666665" />
+        <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/fragment_alunos_colaborador_dash_board.xml" value="0.25416666666666665" />
         <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/fragment_cadastrar_aluno.xml" value="0.25416666666666665" />
         <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/fragment_cadastrar_colaborador.xml" value="0.25416666666666665" />
         <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/fragment_colaborador.xml" value="0.264" />
+        <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/fragment_colaborador_dash_board.xml" value="0.264" />
+        <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/fragment_cursos_colaborador_dash_board.xml" value="0.25416666666666665" />
         <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/fragment_gallery.xml" value="0.25416666666666665" />
         <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
         <entry key="..\:/EstudosAgamenon/SesiCursos/Android/CursosSESI/app/src/main/res/layout/fragment_logar.xml" value="0.264" />

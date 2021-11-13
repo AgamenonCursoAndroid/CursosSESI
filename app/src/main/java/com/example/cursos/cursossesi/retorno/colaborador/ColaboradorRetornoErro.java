@@ -1,4 +1,6 @@
-package com.example.cursos.cursossesi.retorno;
+package com.example.cursos.cursossesi.retorno.colaborador;
+
+import com.example.cursos.cursossesi.retorno.ListaDeErros;
 
 public class ColaboradorRetornoErro {
     private String title;

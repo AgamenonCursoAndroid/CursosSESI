@@ -2,30 +2,28 @@ package com.example.cursos.cursossesi.ui.colaborador;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.cursos.cursossesi.retorno.RetornoCadastroOk;
 import com.example.cursos.cursossesi.ui.activity.MainActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.text.InputType;
 import android.text.TextUtils;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.cursos.cursossesi.ui.activity.MainActivity;
 import com.example.cursos.cursossesi.R;
 import com.example.cursos.cursossesi.models.Colaborador;
-import com.example.cursos.cursossesi.retorno.ColaboradorRetornoErro;
+import com.example.cursos.cursossesi.retorno.colaborador.ColaboradorRetornoErro;
 import com.example.cursos.cursossesi.services.ColaboradorService;
+import com.example.cursos.cursossesi.ui.utils.VisibilidadeSenha;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -97,36 +95,12 @@ public class CadastrarColaboradorFragment extends Fragment implements View.OnCli
                 break;
 
             case R.id.imgViewSenha:
-                visiblidadeSenha();
+                mostrarSenha = VisibilidadeSenha.definir(txtSenha, imgViewSenha, mostrarSenha);
                 break;
 
             case R.id.imgViewConfirmaSenha:
-                visiblidadeConfirmaSenha();
+                mostrarConfirmaSenha = VisibilidadeSenha.definir(txtConfirmaSenha, imgViewConfirmaSenha, mostrarConfirmaSenha);
                 break;
-        }
-    }
-
-    private void visiblidadeSenha() {
-        mostrarSenha = !mostrarSenha;
-        if (mostrarSenha) {
-            imgViewSenha.setImageResource(R.drawable.view);
-            txtSenha.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-        }
-        else {
-            imgViewSenha.setImageResource(R.drawable.hidden);
-            txtSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        }
-    }
-
-    private void visiblidadeConfirmaSenha() {
-        mostrarConfirmaSenha = !mostrarConfirmaSenha;
-        if (mostrarConfirmaSenha) {
-            imgViewConfirmaSenha.setImageResource(R.drawable.view);
-            txtConfirmaSenha.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-        }
-        else {
-            imgViewConfirmaSenha.setImageResource(R.drawable.hidden);
-            txtConfirmaSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }
     }
 
@@ -147,12 +121,12 @@ public class CadastrarColaboradorFragment extends Fragment implements View.OnCli
         Colaborador colaborador = new Colaborador(nome, email, telefone, usuario, senha, confirmacaoSenha);
 
         ColaboradorService service = retrofit.create(ColaboradorService.class);
-        Call<Colaborador> call = service.incluir(colaborador);
-        call.enqueue(new Callback<Colaborador>() {
+        Call<RetornoCadastroOk> call = service.incluir(colaborador);
+        call.enqueue(new Callback<RetornoCadastroOk>() {
             @Override
-            public void onResponse(Call<Colaborador> call, Response<Colaborador> response) {
+            public void onResponse(Call<RetornoCadastroOk> call, Response<RetornoCadastroOk> response) {
                 if (response.isSuccessful()) {
-                    prepararRetorno();
+                    carregarDashBoardColaborador(response.body());
                     retorno = true;
                 }
                 if (response.code() == 400) {
@@ -166,39 +140,18 @@ public class CadastrarColaboradorFragment extends Fragment implements View.OnCli
                     }
                 }
             }
-
             @Override
-            public void onFailure(Call<Colaborador> call, Throwable t) {
-
-                //enviarMensagem("Erro na gravação dos dados");
+            public void onFailure(Call<RetornoCadastroOk> call, Throwable t) {
             }
         });
-
         return retorno;
     }
-
-    /*
-    private void mostrarErros(String[] erros) {
-        // Criar Adapter para a listview;
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
-                getContext(),
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                erros
-        );
-        // Adicionar adaptador para lista;
-        listErros.setAdapter(adaptador);
-    }
-    */
 
     private void mostrarErros(String[] erros) {
         Intent intent = new Intent((MainActivity)getActivity(), ErroCadastrarColaboradorActivity.class);
         intent.putExtra("Erros", erros);
         startActivity(intent);
     }
-
-
-
 
     public void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
@@ -211,6 +164,16 @@ public class CadastrarColaboradorFragment extends Fragment implements View.OnCli
         fragment = new ColaboradorFragment();
         replaceFragment(fragment);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Colaborador");
+    }
+
+    private void carregarDashBoardColaborador(RetornoCadastroOk retornoCadastroOk) {
+        Fragment fragment = null;
+        fragment = new ColaboradorDashBoardFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("Token", retornoCadastroOk);
+        fragment.setArguments(args);
+        replaceFragment(fragment);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Dashboard Colaborador");
     }
 
     private Boolean consistirDados() {
@@ -288,5 +251,4 @@ public class CadastrarColaboradorFragment extends Fragment implements View.OnCli
     public boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
-
 }
